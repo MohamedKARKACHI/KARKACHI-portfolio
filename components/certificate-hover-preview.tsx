@@ -6,7 +6,7 @@ export function CertificateHoverPreview() {
   useEffect(() => {
     const hoverContainer = document.getElementById("certificate-hover-container")
     if (!hoverContainer) {
-      console.log("[v0] Hover container not found")
+      console.log("Hover container not found")
       return
     }
 

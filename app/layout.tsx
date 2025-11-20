@@ -11,7 +11,6 @@ import "./globals.css"
 export const metadata: Metadata = {
   title: "Mohammed Karkachi - Full Stack Developer",
   description: "Full Stack Developer specializing in Spring Boot and React",
-  generator: "v0.app",
 }
 
 export default function RootLayout({

@@ -71,11 +71,11 @@ export function Projects() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        console.log("[v0] Fetching projects from Supabase")
+        console.log("Fetching projects from Supabase")
         const supabase = getSupabaseBrowserClient()
 
         if (!supabase) {
-          console.log("[v0] Supabase not available, using fallback projects")
+          console.log("Supabase not available, using fallback projects")
           setProjects(FALLBACK_PROJECTS.sort((a, b) => a.order_index - b.order_index))
           setLoading(false)
           return
@@ -84,15 +84,15 @@ export function Projects() {
         const { data, error } = await supabase.from("projects").select("*").order("order_index")
 
         if (error) {
-          console.error("[v0] Supabase error:", error.message)
+          console.error("Supabase error:", error.message)
           // Use fallback data on error
           setProjects(FALLBACK_PROJECTS.sort((a, b) => a.order_index - b.order_index))
         } else {
-          console.log("[v0] Projects fetched successfully:", data)
+          console.log("Projects fetched successfully:", data)
           setProjects(data || [])
         }
       } catch (error: any) {
-        console.error("[v0] Error fetching projects:", error?.message || error)
+        console.error("Error fetching projects:", error?.message || error)
         // Use fallback data on error
         setProjects(FALLBACK_PROJECTS.sort((a, b) => a.order_index - b.order_index))
       } finally {
