@@ -35,6 +35,86 @@ export function About() {
     }
   }, [])
 
+  // Coursera certificate hover preview
+  useEffect(() => {
+    let hoverPreview: HTMLDivElement | null = null
+    let activeCard: HTMLElement | null = null
+    let mouseX = 0
+    let mouseY = 0
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX
+      mouseY = e.clientY
+
+      if (hoverPreview && hoverPreview.style.opacity === "1" && activeCard) {
+        hoverPreview.style.left = mouseX + 20 + "px"
+        hoverPreview.style.top = mouseY + 20 + "px"
+      }
+    }
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (!target || !target.classList) return
+
+      const card = target.closest(".cert-hover-coursera") as HTMLElement
+      if (!card) return
+
+      const certUrl = card.getAttribute("data-cert-url")
+      const certTitle = card.getAttribute("data-cert-title")
+
+      if (!certUrl) return
+
+      if (!hoverPreview) {
+        hoverPreview = document.createElement("div")
+        hoverPreview.className =
+          "fixed z-[9999] pointer-events-none transition-opacity duration-300 bg-card border-2 border-accent rounded-lg shadow-2xl overflow-hidden"
+        hoverPreview.style.width = "300px"
+        hoverPreview.style.height = "200px"
+        hoverPreview.innerHTML = `
+          <div class="w-full h-full relative bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 flex items-center justify-center">
+            <div class="text-center p-4">
+              <svg class="w-16 h-16 mx-auto mb-3 text-accent animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+              </svg>
+              <p class="text-sm font-semibold text-foreground line-clamp-2">${certTitle || "Coursera Certificate"}</p>
+              <p class="text-xs text-muted-foreground mt-1">Click to view</p>
+            </div>
+          </div>
+        `
+        document.body.appendChild(hoverPreview)
+      }
+
+      activeCard = card
+      hoverPreview.style.left = mouseX + 20 + "px"
+      hoverPreview.style.top = mouseY + 20 + "px"
+      hoverPreview.style.opacity = "1"
+    }
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (!target || !target.classList) return
+
+      const card = target.closest(".cert-hover-coursera") as HTMLElement
+      if (card === activeCard && hoverPreview) {
+        hoverPreview.style.opacity = "0"
+        activeCard = null
+      }
+    }
+
+    document.addEventListener("mousemove", handleMouseMove)
+    document.addEventListener("mouseover", handleMouseOver)
+    document.addEventListener("mouseout", handleMouseOut)
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove)
+      document.removeEventListener("mouseover", handleMouseOver)
+      document.removeEventListener("mouseout", handleMouseOut)
+      if (hoverPreview && hoverPreview.parentNode) {
+        hoverPreview.parentNode.removeChild(hoverPreview)
+      }
+    }
+  }, [])
+
   const downloadCV = () => {
     const cvContent = `
     KARKACHI MOHAMED
@@ -521,7 +601,9 @@ export function About() {
                       setSelectedCert(cert)
                       setIsCertModalOpen(true)
                     }}
-                    className="group p-5 bg-card border border-border rounded-xl hover:border-accent hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between text-left w-full"
+                    className="cert-hover-coursera group p-5 bg-card border border-border rounded-xl hover:border-accent hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between text-left w-full"
+                    data-cert-url={cert.link}
+                    data-cert-title={cert.title}
                   >
                     <div>
                       <div className="flex items-start justify-between gap-4 mb-2">
