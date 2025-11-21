@@ -1,76 +1,59 @@
-import { getSupabaseServerClient } from "@/lib/supabase/server"
-import { Briefcase, GraduationCap, Code, User } from "lucide-react"
+"use client"
 
-export default async function AdminDashboard() {
-  const supabase = await getSupabaseServerClient()
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { Briefcase, GraduationCap, Code } from "lucide-react"
 
-  const fetchWithFallback = async (table: string) => {
-    try {
-      return await supabase.from(table).select("*", { count: "exact", head: true })
-    } catch (error) {
-      return { count: 0, error }
+export default function AdminDashboard() {
+  const router = useRouter()
+
+  useEffect(() => {
+    // Check if user is logged in
+    const isLoggedIn = localStorage.getItem("isAdminLoggedIn") === "true"
+    if (!isLoggedIn) {
+      router.push("/login")
     }
-  }
-
-  let profileName = "Admin"
-  try {
-    const { data } = await supabase.from("profiles").select("*").single()
-    if (data?.full_name) {
-      profileName = data.full_name
-    }
-  } catch (error) {
-    // Silently fail - profile might not exist yet
-  }
-
-  const [projectsCount, educationCount, skillsCount, certificationsCount, personalProjectsCount, otherSkillsCount] =
-    await Promise.all([
-      fetchWithFallback("projects"),
-      fetchWithFallback("education"),
-      fetchWithFallback("skills"),
-      fetchWithFallback("certifications"),
-      fetchWithFallback("personal_projects"),
-      fetchWithFallback("other_skills"),
-    ])
+  }, [router])
 
   const stats = [
     {
       name: "Total Projects",
-      value: projectsCount.count || 0,
+      value: 0,
       icon: Briefcase,
       color: "text-blue-500",
       bgColor: "bg-blue-500/10",
     },
     {
       name: "Education",
-      value: educationCount.count || 0,
+      value: 0,
       icon: GraduationCap,
       color: "text-green-500",
       bgColor: "bg-green-500/10",
     },
     {
       name: "Skills",
-      value: skillsCount.count || 0,
+      value: 0,
       icon: Code,
       color: "text-purple-500",
       bgColor: "bg-purple-500/10",
     },
     {
       name: "Certifications",
-      value: certificationsCount.count || 0,
+      value: 0,
       icon: Code,
       color: "text-orange-500",
       bgColor: "bg-orange-500/10",
     },
     {
       name: "Personal Projects",
-      value: personalProjectsCount.count || 0,
+      value: 0,
       icon: Briefcase,
       color: "text-pink-500",
       bgColor: "bg-pink-500/10",
     },
     {
       name: "Other Skills",
-      value: otherSkillsCount.count || 0,
+      value: 0,
       icon: Code,
       color: "text-cyan-500",
       bgColor: "bg-cyan-500/10",
@@ -81,7 +64,7 @@ export default async function AdminDashboard() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-foreground mb-2">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back, {profileName}</p>
+        <p className="text-muted-foreground">Welcome back, Admin</p>
       </div>
 
       {/* Stats Grid */}

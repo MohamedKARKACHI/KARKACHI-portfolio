@@ -4,7 +4,6 @@ import type React from "react"
 
 import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
-import { getSupabaseBrowserClient } from "@/lib/supabase/client"
 import Link from "next/link"
 import {
   LayoutDashboard,
@@ -38,32 +37,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [sidebarExpanded, setSidebarExpanded] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
-  const [user, setUser] = useState<any>(null)
   const router = useRouter()
   const pathname = usePathname()
-  const supabase = getSupabaseBrowserClient()
 
   useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      setUser(user)
-    }
-    getUser()
-
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1024)
     }
     handleResize()
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
-  }, [supabase])
+  }, [])
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut()
+  const handleLogout = () => {
+    localStorage.removeItem("isAdminLoggedIn")
+    document.cookie = "isAdminLoggedIn=; path=/; max-age=0"
     router.push("/login")
-    router.refresh()
   }
 
   const sidebarWidth = sidebarExpanded ? "w-64" : "w-20"
