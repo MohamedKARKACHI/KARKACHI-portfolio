@@ -59,32 +59,32 @@ export function About() {
       const card = target.closest(".cert-hover-coursera") as HTMLElement
       if (!card) return
 
-      const certUrl = card.getAttribute("data-cert-url")
+      const certImage = card.getAttribute("data-cert-image")
       const certTitle = card.getAttribute("data-cert-title")
 
-      if (!certUrl) return
+      if (!certImage) return
 
       if (!hoverPreview) {
         hoverPreview = document.createElement("div")
         hoverPreview.className =
-          "fixed z-[9999] pointer-events-none transition-opacity duration-300 bg-card border-2 border-accent rounded-lg shadow-2xl overflow-hidden"
-        hoverPreview.style.width = "300px"
-        hoverPreview.style.height = "200px"
-        hoverPreview.innerHTML = `
-          <div class="w-full h-full relative bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 flex items-center justify-center">
-            <div class="text-center p-4">
-              <svg class="w-16 h-16 mx-auto mb-3 text-accent animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-              </svg>
-              <p class="text-sm font-semibold text-foreground line-clamp-2">${certTitle || "Coursera Certificate"}</p>
-              <p class="text-xs text-muted-foreground mt-1">Click to view</p>
-            </div>
-          </div>
-        `
+          "fixed z-[9999] pointer-events-none transition-opacity duration-200"
+        hoverPreview.style.opacity = "0"
         document.body.appendChild(hoverPreview)
       }
 
       activeCard = card
+      
+      hoverPreview.innerHTML = `
+        <div class="bg-card border-2 border-accent rounded-lg shadow-2xl overflow-hidden" style="width: 350px;">
+          <img 
+            src="${certImage}" 
+            alt="${certTitle || 'Certificate'}" 
+            class="w-full h-auto object-contain"
+            style="max-height: 250px;"
+          />
+        </div>
+      `
+      
       hoverPreview.style.left = mouseX + 20 + "px"
       hoverPreview.style.top = mouseY + 20 + "px"
       hoverPreview.style.opacity = "1"
@@ -539,60 +539,70 @@ export function About() {
                     provider: "Meta",
                     date: "Nov 13, 2024",
                     link: "https://coursera.org/verify/32U4KLJGLAG4",
+                    image: "/meta-react-basics-certificate.png",
                   },
                   {
                     title: "Introduction to Containers w/ Docker, Kubernetes & OpenShift",
                     provider: "IBM",
                     date: "Mar 5, 2025",
                     link: "https://coursera.org/verify/6WGO2LVQSGE8",
+                    image: "/ibm-containers-kubernetes-certificate.png",
                   },
                   {
                     title: "Introduction to Cloud Computing",
                     provider: "IBM",
                     date: "Apr 23, 2025",
                     link: "https://coursera.org/verify/MBRRN2I6W975",
+                    image: "/ibm-cloud-computing-certificate.png",
                   },
                   {
                     title: "The Unix Workbench",
                     provider: "Johns Hopkins University",
                     date: "Apr 19, 2024",
                     link: "https://coursera.org/verify/99NUMYVKLS2Q",
+                    image: "/johns-hopkins-unix-workbench-certificate.png",
                   },
                   {
                     title: "Introduction to Java and Object-Oriented Programming",
                     provider: "University of Pennsylvania",
                     date: "Nov 12, 2024",
                     link: "https://coursera.org/verify/GQPRQ5X5R3KI",
+                    image: "/penn-java-oop-certificate.png",
                   },
                   {
                     title: "Introduction à la programmation orientée objet (en C++)",
                     provider: "École Polytechnique Fédérale de Lausanne",
                     date: "Dec 12, 2023",
                     link: "https://coursera.org/verify/H5JUWL8KLL3",
+                    image: "/epfl-cpp-programming-certificate.png",
                   },
                   {
                     title: "Advanced Styling with Responsive Design",
                     provider: "University of Michigan",
                     date: "Nov 24, 2023",
                     link: "https://coursera.org/verify/FQAW8PKWRB9K",
+                    image: "/michigan-responsive-design-certificate.png",
                   },
                   {
                     title: "Web Design for Everybody Capstone",
                     provider: "University of Michigan",
                     date: "Dec 8, 2023",
                     link: "https://coursera.org/verify/LBV2EM5R4ZA7",
+                    image: "/michigan-web-design-capstone-certificate.png",
                   },
                   {
                     title: "Interactivity with JavaScript",
                     provider: "University of Michigan",
                     date: "Nov 10, 2023",
                     link: "https://coursera.org/verify/R59BMLRNJK3P",
+                    image: "/michigan-javascript-interactivity-certificate.png",
                   },
                   {
                     title: "Software Engineering: Software Design and Project Management",
                     provider: "The Hong Kong University of Science and Technology",
                     date: "May 6, 2024",
                     link: "https://coursera.org/verify/V8FYH3EU2GLD",
+                    image: "/hkust-software-engineering-certificate.png",
                   },
                 ].map((cert, index) => (
                   <button
@@ -604,6 +614,7 @@ export function About() {
                     className="cert-hover-coursera group p-5 bg-card border border-border rounded-xl hover:border-accent hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between text-left w-full"
                     data-cert-url={cert.link}
                     data-cert-title={cert.title}
+                    data-cert-image={cert.image}
                   >
                     <div>
                       <div className="flex items-start justify-between gap-4 mb-2">
