@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { Briefcase, GraduationCap, Code } from "lucide-react"
+import { Briefcase, GraduationCap, Code, User } from "lucide-react"
 
 export default function AdminDashboard() {
   const router = useRouter()

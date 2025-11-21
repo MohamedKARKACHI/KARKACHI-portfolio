@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = 'force-dynamic'
+
 import type React from "react"
 
 import { useEffect, useState } from "react"
@@ -127,7 +129,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   <User className="w-4 h-4 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-medium text-foreground truncate">{user?.email || "Admin"}</p>
+                  <p className="text-xs font-medium text-foreground truncate">admin@portfolio.com</p>
                   <p className="text-xs text-muted-foreground">Admin</p>
                 </div>
               </div>
