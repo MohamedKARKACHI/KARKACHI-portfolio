@@ -3,11 +3,14 @@
 import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { getSupabaseBrowserClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Lock, Mail, AlertCircle, Eye, EyeOff, Home, Sparkles } from "lucide-react"
 import Link from "next/link"
+
+// Static admin credentials
+const ADMIN_EMAIL = "admin@portfolio.com"
+const ADMIN_PASSWORD = "admin123"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -16,23 +19,26 @@ export default function LoginPage() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const supabase = getSupabaseBrowserClient()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
     setLoading(true)
 
+    // Simulate a small delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 500))
+
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-
-      if (error) throw error
-
-      router.push("/admin")
-      router.refresh()
+      // Check against static credentials
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        // Store login state in localStorage and cookie
+        localStorage.setItem("isAdminLoggedIn", "true")
+        document.cookie = "isAdminLoggedIn=true; path=/; max-age=86400" // 24 hours
+        router.push("/admin")
+        router.refresh()
+      } else {
+        throw new Error("Invalid email or password")
+      }
     } catch (err: any) {
       setError(err.message || "Failed to login. Please check your credentials.")
     } finally {
