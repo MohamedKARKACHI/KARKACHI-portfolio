@@ -37,11 +37,11 @@ export function CertificateHoverPreview() {
       const certTitle = card.getAttribute("data-cert-title")
 
       if (!certSrc) {
-        console.log("[v0] No cert-src found")
+        console.log("No cert-src found")
         return
       }
 
-      console.log("[v0] Showing preview for", certTitle)
+      console.log("Showing preview for", certTitle)
 
       activeCard = card
       const previewImg = hoverContainer.querySelector("img") as HTMLImageElement
@@ -63,7 +63,7 @@ export function CertificateHoverPreview() {
 
       const card = target.closest(".cert-hover") as HTMLElement
       if (card === activeCard) {
-        console.log("[v0] Hiding preview")
+        console.log("Hiding preview")
         hoverContainer.style.display = "none"
         activeCard = null
       }

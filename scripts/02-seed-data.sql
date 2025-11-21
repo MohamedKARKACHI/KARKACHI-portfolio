@@ -1,76 +1,100 @@
--- Update profile with new bio and website
-UPDATE profiles SET 
-  bio = 'Étudiant en 5ème année d''ingénierie informatique, à la recherche d''un stage PFE de 4 mois. Passionné par le développement back-end, j''ai une expérience en conception d''API REST et gestion de bases de données avec Spring Boot, MySQL et Elasticsearch. J''ai créé 86 API REST sécurisées et performantes avec authentification, filtres, cache et logging complet. Curieux et rigoureux, je souhaite contribuer à des projets innovants.',
-  linkedin_url = 'https://linkedin.com/in/mohamed-karkachi',
-  github_url = 'https://github.com/mohammedkarkachi'
-WHERE full_name = 'Mohammed Karkachi';
+-- Clear existing data
+TRUNCATE TABLE profiles, education, projects, skills, languages, soft_skills, certifications, personal_projects, other_skills RESTART IDENTITY CASCADE;
 
--- Update first experience with detailed description about 86 REST APIs
-UPDATE projects SET 
-  description = 'Création de 86 API REST sécurisées et performantes avec authentification, filtres, cache et logging complet. Conception d''une architecture back-end optimisée, scalable et prête pour la production.'
-WHERE company = 'Z.H mac negos';
+-- Insert Profile
+INSERT INTO profiles (full_name, title, bio, location, email, phone, linkedin_url, github_url)
+VALUES (
+  'KARKACHI MOHAMED',
+  'Futur Ingénieur Test & Qualité Logicielle',
+  'Étudiant en dernière année du cycle ingénieur MIAGE à l''EMSI, à la recherche d''un stage de fin d''études (PFE) de 4 à 6 mois. Bonnes connaissances en développement web et mobile (React, Node.js, Spring Boot) avec un intérêt pour les tests logiciels et l''assurance qualité. Capacité à travailler en équipe sur des projets en appliquant des méthodologies Agile et des pratiques de test.',
+  'Marrakech',
+  'karkachimohamed045@gmail.com',
+  '+212 619-176173',
+  'https://linkedin.com/in/mohamed-karkachi',
+  'https://github.com/MohamedKARKACHI'
+);
 
--- Add new personal projects
-INSERT INTO personal_projects (title, description, technologies, project_url, github_url, order_index)
+-- Insert Education
+INSERT INTO education (institution, degree, field, location, start_date, end_date, description, order_index)
 VALUES 
 (
-  'SIGAP - Système Intelligent de Gestion des Absences',
-  'Développement d''un système intelligent de gestion des absences (SIGAP) basé sur la détection des adresses MAC Bluetooth. Système complet avec détection automatique, rapports et statistiques.',
-  ARRAY['Spring Boot', 'Elasticsearch', 'JWT', 'Docker', 'MySQL'],
-  'https://sigap-eight.vercel.app/',
-  'https://github.com/mohammedkarkachi/sigap',
+  'EMSI, Marrakech',
+  'Cycle Ingénieur en Informatique et Réseaux',
+  'Informatique et Réseaux',
+  'Marrakech',
+  '2023',
+  '2026',
+  'Formation d’ingénieur axée sur le développement logiciel, les réseaux informatiques, l’architecture des systèmes, la cybersécurité et les technologies émergentes. Réalisation de plusieurs projets académiques et applications web complètes.',
   1
 ),
 (
-  'UML Class Diagram Editor',
-  'Conception d''une application web interactive permettant aux utilisateurs de créer visuellement des diagrammes de classes UML via une interface intuitive, similaire à des outils tels que draw.io ou StarUML.',
-  ARRAY['Spring Boot', 'React.js', 'Vite', 'HTML/CSS', 'MySQL'],
-  'https://uml-diagram-editor.vercel.app/',
-  'https://github.com/mohammedkarkachi/uml-diagram',
+  'OFPPT, SYBANTIC, Marrakech',
+  'Diplôme Technicien Specialisé Infrastructure Degital Option Cloud Computing',
+  'Cloud Computing',
+  'Marrakech',
+  '2021',
+  '2023',
+  'Formation technique en gestion des systèmes et réseaux informatiques, sécurité des infrastructures, détection et prévention des menaces, avec une approche pratique basée sur des cas réels d’entreprise.',
+  2
+);
+
+-- Insert Experience (Projects)
+INSERT INTO projects (title, company, period, description, technologies, order_index)
+VALUES 
+(
+  'Stagiaire en Développeur Full Stack',
+  'Z.H MAC Negos, Marrakech',
+  'Juil. 2025 – Sept. 2025',
+  'Création de 86 API REST sécurisées et performantes avec authentification, filtres, cache et logging complet. Conception d’une architecture back-end optimisée, scalable et prête pour la production.',
+  ARRAY['Java', 'Spring Boot', 'Spring Security', 'JWT', 'JPA', 'OAuth2', 'RBAC', 'MySQL', 'Ehcache'],
+  1
+),
+(
+  'Stagiaire en Développeur Full Stack',
+  'FIZAZI & ASSOCIES, Hay riad , Rabat',
+  'Juil. 2024 – Sept. 2024',
+  'Conception, développement et configuration d''une application web pour gérer les fichiers Excel, fournir des tableaux et des statistiques avec des calculs, ainsi que l''exportation des résultats sous format Excel ou Word. Des tableaux de bord permettront de visualiser les résultats.',
+  ARRAY['REACT JS', 'MONGO DB', 'Excel', 'MERN STACK'],
   2
 ),
 (
-  'JSON/XML File Converter',
-  'Développement d''une application web permettant la conversion de fichiers entre les formats JSON et XML, avec une interface utilisateur intuitive et un traitement rapide des données.',
-  ARRAY['Spring Boot', 'React.js', 'Vite', 'HTML/CSS', 'MySQL'],
-  'https://json-xml-amber.vercel.app/',
-  'https://github.com/mohammedkarkachi/json-xml-converter',
+  'Stagiaire en Développeur Full Stack',
+  'Ciment du Maroc , Marrakech',
+  'Juil. 2023 – Août 2023',
+  'Conception, Développement et Configuration d''une application Desktop pour gérer les réclamations et les réponses des employés.',
+  ARRAY['PowerApp', 'PowerBI', 'Excel', 'SQLserver'],
   3
 );
 
--- Add certifications
+-- Insert Skills
+INSERT INTO skills (category, name, order_index)
+VALUES 
+('Programmation', 'C', 1), ('Programmation', 'C++', 2), ('Programmation', 'JAVA', 3), ('Programmation', 'Python', 4), ('Programmation', 'POO', 5), ('Programmation', 'UML', 6),
+('Frameworks/Logiciels', 'React js', 1), ('Frameworks/Logiciels', 'ReactNative', 2), ('Frameworks/Logiciels', 'Laravel', 3), ('Frameworks/Logiciels', 'Nest js', 4), ('Frameworks/Logiciels', 'Django', 5),
+('Frameworks/Logiciels', 'Photoshop', 6), ('Frameworks/Logiciels', 'Illustrator', 7), ('Frameworks/Logiciels', 'Visual Studio Code', 8), ('Frameworks/Logiciels', 'QT creator', 9), ('Frameworks/Logiciels', 'XAMPP', 10), ('Frameworks/Logiciels', 'StarUML', 11), ('Frameworks/Logiciels', 'Figma', 12),
+('Développement Web/Bases de données', 'HTML', 1), ('Développement Web/Bases de données', 'CSS', 2), ('Développement Web/Bases de données', 'JAVASCRIPT', 3), ('Développement Web/Bases de données', 'PHP', 4),
+('Développement Web/Bases de données', 'SQL Server', 5), ('Développement Web/Bases de données', 'Maria db', 6), ('Développement Web/Bases de données', 'Mongo DB', 7);
+
+-- Insert Languages
+INSERT INTO languages (name, proficiency, order_index)
+VALUES 
+('Arabe', 'Maternelle', 1),
+('Français', 'Intermédiaire', 2),
+('Anglais', 'Intermédiaire', 3),
+('Español', 'Débutant', 4);
+
+-- Insert Soft Skills
+INSERT INTO soft_skills (name, order_index)
+VALUES 
+('Résolution de problèmes', 1),
+('Esprit critique et éthique', 2),
+('Capacité d’adaptation', 3),
+('Flexibilité', 4);
+
+-- Insert Certifications
 INSERT INTO certifications (title, issuer, date, order_index)
 VALUES 
-('Data Visualisation', 'Coursera', '2024', 1),
-('Software Engineering', 'Coursera', '2024', 2),
-('The Unix Workbench', 'Coursera', '2024', 3),
-('Interactivity with JavaScript', 'Coursera', '2024', 4),
-('Introduction à la programmation orientée objet (en C++)', 'Coursera', '2024', 5),
-('Advanced Styling with Responsive Design', 'Coursera', '2024', 6),
-('CCNA1 - CCNA2 - CCNA3', 'OFPPT - Cisco Academy', '2023', 7),
-('AZ104 - AZ500 - AZ900', 'OFPPT - Microsoft', '2023', 8);
-
--- Add other skills (networking, cloud, virtualization, etc.)
-INSERT INTO other_skills (category, name, order_index)
-VALUES 
-('Networking', 'Networking', 1),
-('Cloud & DevOps', 'Azure DevOps', 1),
-('Cloud & DevOps', 'Cloud Computing', 2),
-('Cloud & DevOps', 'OpenStack', 3),
-('Cloud & DevOps', 'Docker', 4),
-('Virtualization', 'Proxmox', 1),
-('Virtualization', 'ESXi', 2),
-('Virtualization', 'VMware vSphere', 3),
-('Virtualization', 'vCenter', 4),
-('Virtualization', 'VirtualBox', 5),
-('Virtualization', 'Hyper-V', 6),
-('Specializations', 'Robotics', 1),
-('Specializations', 'Machine Learning', 2),
-('Tools', 'Qt Creator', 1),
-('Tools', 'PyQt', 2);
-
--- Update languages with proficiency levels
-UPDATE languages SET proficiency = 'Natif' WHERE name = 'Arabe';
-UPDATE languages SET proficiency = 'Courant' WHERE name = 'Français';
-UPDATE languages SET proficiency = 'Intermédiaire' WHERE name = 'Anglais';
-UPDATE languages SET proficiency = 'Débutant' WHERE name = 'Español';
+('Java SE 17 Developer (1Z0-829)', 'Oracle', '', 1),
+('COCIA', 'Conference', 'Avril 2025', 2),
+('EMSISTE INNOV', 'Conference', 'Mai 2025', 3),
+('AISEC', 'Conference', 'Mai 2025', 4);

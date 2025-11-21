@@ -1,10 +1,12 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useLanguage } from "@/components/language-provider"
 
 export function Footer() {
   const [isVisible, setIsVisible] = useState(false)
   const footerRef = useRef<HTMLElement>(null)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,10 +37,10 @@ export function Footer() {
         }`}
       >
         <p className="text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
-          © 2025 Mohammed Karkachi. All rights reserved.
+          © 2025 Mohammed Karkachi. {t.footer.rights}
         </p>
         <p className="text-muted-foreground text-sm hover:text-foreground transition-colors duration-300">
-          Built with Next.js & Tailwind CSS
+          {t.footer.builtWith}
         </p>
       </div>
     </footer>

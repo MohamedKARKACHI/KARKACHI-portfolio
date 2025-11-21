@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Mail, Phone, MapPin, Github, Linkedin } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 export function Contact() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,7 +41,7 @@ export function Contact() {
             isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
           }`}
         >
-          Get In Touch
+          {t.contact.title}
         </h2>
         <p
           className={`text-muted-foreground text-lg mb-12 leading-relaxed text-center max-w-3xl mx-auto transition-all duration-1000 ${
@@ -47,8 +49,7 @@ export function Contact() {
           }`}
           style={{ transitionDelay: "200ms" }}
         >
-          I'm currently seeking a 4-month PFE internship. Let's discuss how I can contribute to your innovative
-          projects.
+          {t.contact.description}
         </p>
 
         <div
@@ -59,7 +60,7 @@ export function Contact() {
         >
           <div className="p-6 bg-card rounded-xl border-2 border-accent/20 hover:border-accent/50 transition-all duration-300 hover:scale-105">
             <Mail className="w-8 h-8 text-accent mx-auto mb-3" />
-            <p className="text-muted-foreground text-sm mb-2">Email</p>
+            <p className="text-muted-foreground text-sm mb-2">{t.contact.email}</p>
             <a
               href="mailto:karkachimohamed045@gmail.com"
               className="text-foreground text-sm hover:text-accent transition-colors break-all"
@@ -69,14 +70,14 @@ export function Contact() {
           </div>
           <div className="p-6 bg-card rounded-xl border-2 border-accent/20 hover:border-accent/50 transition-all duration-300 hover:scale-105">
             <Phone className="w-8 h-8 text-accent mx-auto mb-3" />
-            <p className="text-muted-foreground text-sm mb-2">Phone</p>
+            <p className="text-muted-foreground text-sm mb-2">{t.contact.phone}</p>
             <a href="tel:+212619176173" className="text-foreground text-sm hover:text-accent transition-colors">
               +212 619-176173
             </a>
           </div>
           <div className="p-6 bg-card rounded-xl border-2 border-accent/20 hover:border-accent/50 transition-all duration-300 hover:scale-105">
             <MapPin className="w-8 h-8 text-accent mx-auto mb-3" />
-            <p className="text-muted-foreground text-sm mb-2">Location</p>
+            <p className="text-muted-foreground text-sm mb-2">{t.contact.location}</p>
             <p className="text-foreground text-sm"> Marrakech</p>
           </div>
         </div>
@@ -97,9 +98,9 @@ export function Contact() {
             </div>
             <div className="flex items-center gap-2 text-foreground">
               <Linkedin className="w-5 h-5 text-accent" />
-              <span className="font-medium">LinkedIn Profile</span>
+              <span className="font-medium">{t.contact.linkedinProfile}</span>
             </div>
-            <p className="text-muted-foreground text-sm mt-2">Scan to connect</p>
+            <p className="text-muted-foreground text-sm mt-2">{t.contact.scanLinkedin}</p>
           </div>
 
           <div className="flex flex-col items-center p-8 bg-card rounded-2xl border-2 border-accent/20 hover:border-accent/50 transition-all duration-300 hover:scale-105">
@@ -112,9 +113,9 @@ export function Contact() {
             </div>
             <div className="flex items-center gap-2 text-foreground">
               <Github className="w-5 h-5 text-accent" />
-              <span className="font-medium">GitHub Profile</span>
+              <span className="font-medium">{t.contact.githubProfile}</span>
             </div>
-            <p className="text-muted-foreground text-sm mt-2">Scan to view code</p>
+            <p className="text-muted-foreground text-sm mt-2">{t.contact.scanGithub}</p>
           </div>
         </div>
 
@@ -128,7 +129,7 @@ export function Contact() {
             href="mailto:karkachimohamed045@gmail.com"
             className="px-8 py-4 bg-accent text-accent-foreground rounded-full font-medium hover:scale-110 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
           >
-            <span className="relative z-10">Send Email</span>
+            <span className="relative z-10">{t.contact.sendEmail}</span>
           </a>
           <a
             href={linkedinUrl}
@@ -136,7 +137,7 @@ export function Contact() {
             rel="noopener noreferrer"
             className="px-8 py-4 border-2 border-border text-foreground rounded-full font-medium hover:bg-muted hover:border-accent hover:scale-110 transition-all duration-300"
           >
-            View LinkedIn
+            {t.contact.viewLinkedin}
           </a>
           <a
             href={githubUrl}
@@ -144,7 +145,7 @@ export function Contact() {
             rel="noopener noreferrer"
             className="px-8 py-4 border-2 border-border text-foreground rounded-full font-medium hover:bg-muted hover:border-accent hover:scale-110 transition-all duration-300"
           >
-            View GitHub
+            {t.contact.viewGithub}
           </a>
         </div>
 

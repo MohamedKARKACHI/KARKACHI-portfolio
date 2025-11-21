@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CertificateHoverPreview } from "@/components/certificate-hover-preview"
+import { LanguageProvider } from "@/components/language-provider"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -21,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-          <CertificateHoverPreview />
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+            <CertificateHoverPreview />
+          </ThemeProvider>
+        </LanguageProvider>
         <Analytics />
       </body>
     </html>

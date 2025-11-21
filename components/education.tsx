@@ -1,11 +1,13 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { GraduationCap, Calendar, MapPin, BookOpen } from 'lucide-react'
+import { GraduationCap, Calendar, MapPin, BookOpen } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 export function Education() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,39 +30,20 @@ export function Education() {
     }
   }, [])
 
-  const education = [
-    {
-      degree: "5ème Année Ingénierie",
-      field: "Ingénierie Informatique et Réseaux",
-      school: "École Marocaine des Sciences de L'ingénieur (EMSI)",
-      location: "Marrakech, Maroc",
-      period: "2023 - 2026",
-    },
-    {
-      degree: "Diplôme Technicien Spécialisé (DTS)",
-      field: "Infrastructure Digitale Option Cloud Computing",
-      school: "OFPPT, SYBANTIC",
-      location: "Marrakech, Maroc",
-      period: "2021 - 2023",
-    },
-  ]
-
   return (
     <section ref={sectionRef} id="education" className="relative py-24 px-6 md:px-12 bg-background">
       <div className="max-w-6xl mx-auto">
-        <div className={`mb-16 transition-all duration-1000 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}>
-          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-3">
-            Education
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Academic background and qualifications
-          </p>
+        <div
+          className={`mb-16 transition-all duration-1000 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-3">{t.education.title}</h2>
+          <p className="text-lg text-muted-foreground">{t.education.subtitle}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {education.map((edu, index) => (
+          {t.education.items.map((edu, index) => (
             <div
               key={index}
               className={`group relative transition-all duration-1000 ${

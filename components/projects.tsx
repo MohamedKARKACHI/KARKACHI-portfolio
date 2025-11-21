@@ -2,40 +2,38 @@
 
 import { useEffect, useRef, useState } from "react"
 import { getSupabaseBrowserClient } from "@/lib/supabase/client"
-import { ProjectModal } from "./project-modal"
-import { ExternalLink, Github, Calendar, Building2, ArrowUpRight } from 'lucide-react'
 
 // Fallback projects data from CV
 const FALLBACK_PROJECTS = [
   {
     id: 1,
-    title: "Stage Développeur Full Stack",
-    company: "Z.H mac negos",
-    period: "Juillet - Septembre 2024",
+    title: "Stagiaire en Développeur Full Stack",
+    company: "Z.H MAC Negos",
+    period: "Juil. 2025 – Sept. 2025",
     description:
-      "Conception, développement et configuration d'une application web pour gérer les fichiers Excel, fournir des tableaux et des statistiques avec des calculs, ainsi que l'exportation des résultats sous format Excel ou Word.",
-    technologies: ["React JS", "Mongo DB", "Excel", "MERN Stack"],
+      "Création de 86 API REST sécurisées et performantes avec authentification, filtres, cache et logging complet. Conception d’une architecture back-end optimisée, scalable et prête pour la production.",
+    technologies: ["Java", "Spring Boot", "Spring Security", "JWT", "MySQL"],
     order_index: 1,
   },
   {
     id: 2,
-    title: "Stage Développeur Full Stack",
+    title: "Stagiaire en Développeur Full Stack",
     company: "FIZAZI & ASSOCIES",
-    period: "Mars - Mai 2023",
+    period: "Juil. 2024 – Sept. 2024",
     description:
-      "Conception, Développement et Configuration d'une application Desktop pour gérer les réclamations et les réponses des employés.",
-    technologies: ["PowerApp", "PowerBI", "Excel", "SQL Server"],
+      "Conception, développement et configuration d'une application web pour gérer les fichiers Excel, fournir des tableaux et des statistiques avec des calculs, ainsi que l'exportation des résultats sous format Excel ou Word.",
+    technologies: ["REACT JS", "MONGO DB", "Excel", "MERN STACK"],
     order_index: 2,
   },
   {
     id: 3,
-    title: "Stage Développeur Full Stack",
+    title: "Stagiaire en Développeur Full Stack",
     company: "Ciment du Maroc",
-    period: "Avril - Juillet 2025",
+    period: "Juil. 2023 – Août 2023",
     description:
-      "Création de 86 API REST sécurisées et performantes avec authentification, filtres, cache et logging complet. Conception d'une architecture back-end optimisée, scalable et prête pour la production.",
-    technologies: ["Java", "Spring Boot", "Spring Security", "JWT", "MySQL"],
-    order_index: 0,
+      "Conception, Développement et Configuration d'une application Desktop pour gérer les réclamations et les réponses des employés.",
+    technologies: ["PowerApp", "PowerBI", "Excel", "SQLserver"],
+    order_index: 3,
   },
 ]
 
@@ -107,7 +105,5 @@ export function Projects() {
     console.log("Project clicked:", project)
   }
 
-  return (
-    null
-  )
+  return null
 }

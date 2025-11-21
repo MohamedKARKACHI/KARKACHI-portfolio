@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Code2, Database, Globe, Layers, Wrench, MessageSquare } from 'lucide-react'
+import { Code2, Globe, Layers, MessageSquare } from "lucide-react"
 
 export function Skills() {
   const [isVisible, setIsVisible] = useState(false)
@@ -32,56 +32,48 @@ export function Skills() {
     {
       title: "Programmation",
       icon: Code2,
-      skills: ["C", "C++", "Java", "Python", "POO", "UML"],
+      skills: ["C", "C++", "JAVA", "Python", "POO", "UML"],
     },
     {
-      title: "Développement Web",
-      icon: Globe,
-      skills: ["HTML", "CSS", "JavaScript", "PHP"],
-    },
-    {
-      title: "Frameworks",
+      title: "Frameworks/Logiciels",
       icon: Layers,
-      skills: ["React.js", "React Native", "Laravel", "Express.js", "Django", "Spring Boot"],
+      skills: [
+        "React js",
+        "ReactNative",
+        "Laravel",
+        "Nest js",
+        "Django",
+        "Spring Boot",
+        "Photoshop",
+        "Illustrator",
+        "VS Code",
+        "Figma",
+      ],
     },
     {
-      title: "Bases de données",
-      icon: Database,
-      skills: ["SQL", "phpMyAdmin", "NoSQL", "MongoDB", "MySQL", "Elasticsearch"],
-    },
-    {
-      title: "Logiciels",
-      icon: Wrench,
-      skills: ["Photoshop", "Illustrator", "Word", "Excel", "VS Code", "QT Creator", "XAMPP", "StarUML"],
+      title: "Web/DB",
+      icon: Globe,
+      skills: ["HTML", "CSS", "JAVASCRIPT", "PHP", "SQL Server", "Maria db", "Mongo DB"],
     },
     {
       title: "Langues",
       icon: MessageSquare,
-      skills: ["Arabe (Natif)", "Français (Courant)", "Anglais (Professionnel)", "Español (Intermédiaire)"],
+      skills: ["Arabe (Maternelle)", "Français (Intermédiaire)", "Anglais (Intermédiaire)", "Español (Débutant)"],
     },
   ]
 
-  const softSkills = [
-    "Résolution de problèmes",
-    "Esprit critique et éthique",
-    "Capacité d'adaptation",
-    "Flexibilité",
-    "Travail d'équipe",
-    "Communication",
-  ]
+  const softSkills = ["Résolution de problèmes", "Esprit critique et éthique", "Capacité d’adaptation", "Flexibilité"]
 
   return (
     <section ref={sectionRef} id="skills" className="relative py-24 px-6 md:px-12 bg-background">
       <div className="max-w-7xl mx-auto">
-        <div className={`mb-16 transition-all duration-1000 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}>
-          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-3">
-            Compétences
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Technical expertise and tools
-          </p>
+        <div
+          className={`mb-16 transition-all duration-1000 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-3">Compétences</h2>
+          <p className="text-lg text-muted-foreground">Technical expertise and tools</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">

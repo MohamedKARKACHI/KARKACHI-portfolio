@@ -1,15 +1,18 @@
 "use client"
 
 import type React from "react"
-
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Globe } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
+import { useLanguage } from "@/components/language-provider"
+import { Button } from "@/components/ui/button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { language, setLanguage, t } = useLanguage()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,47 +48,52 @@ export function Navigation() {
             onClick={(e) => handleClick(e, "#about")}
             className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
           >
-            About
+            {t.nav.about}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
           </Link>
+
           <Link
             href="#education"
             onClick={(e) => handleClick(e, "#education")}
             className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
           >
-            Education
+            {t.nav.education}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
           </Link>
+
           <Link
             href="#skills"
             onClick={(e) => handleClick(e, "#skills")}
             className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
           >
-            Skills
+            {t.nav.skills}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
           </Link>
+
           <Link
             href="#project"
             onClick={(e) => handleClick(e, "#project")}
             className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
           >
-            Experience
+            {t.nav.experience}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
           </Link>
+
           <Link
             href="#personal-projects"
             onClick={(e) => handleClick(e, "#personal-projects")}
             className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
           >
-            Projects
+            {t.nav.projects}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
           </Link>
+
           <Link
             href="#certifications"
             onClick={(e) => handleClick(e, "#certifications")}
             className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
           >
-            Certifications
+            {t.nav.certifications}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
           </Link>
           <Link
@@ -93,13 +101,39 @@ export function Navigation() {
             onClick={(e) => handleClick(e, "#contact")}
             className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
           >
-            Contact
+            {t.nav.contact}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
           </Link>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="w-9 px-0">
+                <Globe className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+                <span className="sr-only">Toggle language</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setLanguage("en")}>English</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setLanguage("fr")}>Français</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <ThemeToggle />
         </div>
 
         <div className="flex md:hidden items-center gap-4">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="w-9 px-0">
+                <Globe className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+                <span className="sr-only">Toggle language</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setLanguage("en")}>English</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setLanguage("fr")}>Français</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <ThemeToggle />
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -122,49 +156,49 @@ export function Navigation() {
             onClick={(e) => handleClick(e, "#about")}
             className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base font-medium hover:translate-x-2"
           >
-            About
+            {t.nav.about}
           </Link>
           <Link
             href="#education"
             onClick={(e) => handleClick(e, "#education")}
             className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base font-medium hover:translate-x-2"
           >
-            Education
+            {t.nav.education}
           </Link>
           <Link
             href="#skills"
             onClick={(e) => handleClick(e, "#skills")}
             className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base font-medium hover:translate-x-2"
           >
-            Skills
+            {t.nav.skills}
           </Link>
           <Link
             href="#project"
             onClick={(e) => handleClick(e, "#project")}
             className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base font-medium hover:translate-x-2"
           >
-            Experience
+            {t.nav.experience}
           </Link>
           <Link
             href="#personal-projects"
             onClick={(e) => handleClick(e, "#personal-projects")}
             className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base font-medium hover:translate-x-2"
           >
-            Projects
+            {t.nav.projects}
           </Link>
           <Link
             href="#certifications"
             onClick={(e) => handleClick(e, "#certifications")}
             className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base font-medium hover:translate-x-2"
           >
-            Certifications
+            {t.nav.certifications}
           </Link>
           <Link
             href="#contact"
             onClick={(e) => handleClick(e, "#contact")}
             className="text-muted-foreground hover:text-foreground transition-all duration-300 text-base font-medium hover:translate-x-2"
           >
-            Contact
+            {t.nav.contact}
           </Link>
         </div>
       </div>
