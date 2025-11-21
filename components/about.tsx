@@ -11,6 +11,8 @@ export function About() {
   const [isVisible, setIsVisible] = useState(true)
   const sectionRef = useRef<HTMLElement>(null)
   const { t } = useLanguage()
+  const [selectedCert, setSelectedCert] = useState<{ title: string; link: string; provider: string } | null>(null)
+  const [isCertModalOpen, setIsCertModalOpen] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -513,12 +515,13 @@ export function About() {
                     link: "https://coursera.org/verify/V8FYH3EU2GLD",
                   },
                 ].map((cert, index) => (
-                  <a
+                  <button
                     key={index}
-                    href={cert.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group p-5 bg-card border border-border rounded-xl hover:border-accent hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+                    onClick={() => {
+                      setSelectedCert(cert)
+                      setIsCertModalOpen(true)
+                    }}
+                    className="group p-5 bg-card border border-border rounded-xl hover:border-accent hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between text-left w-full"
                   >
                     <div>
                       <div className="flex items-start justify-between gap-4 mb-2">
@@ -536,13 +539,13 @@ export function About() {
                     <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
                       <span className="text-xs text-muted-foreground">{cert.date}</span>
                       <span className="text-xs font-medium text-accent group-hover:underline flex items-center gap-1">
-                        Verify
+                        View Certificate
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </span>
                     </div>
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
@@ -604,6 +607,55 @@ export function About() {
           </div>
         </div>
       </div>
+
+      {/* Certificate Modal */}
+      {isCertModalOpen && selectedCert && (
+        <div
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          onClick={() => setIsCertModalOpen(false)}
+        >
+          <div
+            className="relative bg-card rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-6 border-b border-border flex items-center justify-between">
+              <div>
+                <h3 className="text-xl font-bold text-foreground">{selectedCert.title}</h3>
+                <p className="text-sm text-muted-foreground">{selectedCert.provider}</p>
+              </div>
+              <button
+                onClick={() => setIsCertModalOpen(false)}
+                className="p-2 rounded-lg hover:bg-accent transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+              <iframe
+                src={selectedCert.link}
+                className="w-full h-[600px] rounded-lg border border-border"
+                title={selectedCert.title}
+              />
+            </div>
+            <div className="p-6 border-t border-border flex justify-between items-center">
+              <p className="text-sm text-muted-foreground">Certificate issued by Coursera</p>
+              <a
+                href={selectedCert.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors"
+              >
+                Open in Coursera
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
